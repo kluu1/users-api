@@ -1,35 +1,13 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const companySchema = new Schema({
-  name: String,
-  catchPhrase: String,
-  bs: String
-});  
-
-const geoSchema = new Schema({
-  lat: String,
-  lng: String,
-});
-
-const addressSchema = new Schema({
-  _id: String,
-  street: String,
-  suite: String,
-  city: String,
-  zipcode: String,
-  geo: geoSchema
-});
-
 const userSchema = new Schema({
-  _id: String,
-  id: Number,
-  name: String,
-  email: String,
-  address: addressSchema,
-  phone: String,
-  website: String,
-  company: companySchema,
-}, { collection: 'users' });
+  id: { type: String, required: true, index: { unique: true } },
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  userName: { type: String, required: true },
+  email: { type: String, required: true },
+  jobTitle: { type: String, required: false }
+});
 
-module.exports = userSchema;
+module.exports = mongoose.model('users', userSchema);
