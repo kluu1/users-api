@@ -1,4 +1,4 @@
-## Build a Searchable API with Apollo GraphQL and MongoDB
+## Build a Searchable Query with Apollo GraphQL and MongoDB
 This is the complete code to my blog post on Medium on "Build a Searchable API with Apollo GraphQL and MongoDB". Check it out: 
 
 https://medium.com/@this.kevinluu/how-to-deploy-a-next-js-app-to-heroku-d33bd86c2a2b
