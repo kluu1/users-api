@@ -6,10 +6,12 @@ const resolvers = {
       // destrcture search, page, limit, and set default values
       const { search = null, page = 1, limit = 20 } = args;
 
+      let searchQuery = {};
+
       // run if search is provided
       if (search) {
-        // build the search query
-        const searchQuery = {
+        // update the search query
+        searchQuery = {
           $or: [
             { firstName: { $regex: search, $options: 'i' } },
             { lastName: { $regex: search, $options: 'i' } },
@@ -18,18 +20,22 @@ const resolvers = {
             { jobTitle: { $regex: search, $options: 'i' } }
           ]
         };
-        // execute mongoose query with search query
-        return Users.find(searchQuery)
-          .limit(limit)
-          .skip((page - 1) * limit)
-          .lean();
       }
 
-      // if no search is provided query for all users
-      return Users.find()
+      // execute query to search users
+      const users = await Users.find(searchQuery)
         .limit(limit)
         .skip((page - 1) * limit)
         .lean();
+
+      // get total documents
+      const count = await Users.countDocuments(searchQuery);
+      
+      return {
+        users,
+        totalPages: Math.ceil(count / limit),
+        currentPage: page
+      }
     }
   }
 };

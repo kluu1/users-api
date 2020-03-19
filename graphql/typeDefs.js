@@ -10,8 +10,14 @@ const typeDefs = gql`
     jobTitle: String
   }
 
+  type UsersResult {
+    users: [User]
+    currentPage: Int
+    totalPages: Int
+  }
+
   type Query {
-    getUsers(search: String, page: Int, limit: Int): [User]
+    getUsers(search: String, page: Int, limit: Int): UsersResult
   }
 `;
 
